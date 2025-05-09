@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure & Share Government Documents</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-analytics-compat.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Secure & Share</div>
+            <div class="nav-links">
+                <a href="#" id="homeLink">Home</a>
+                <a href="#" id="profileLink">My Profile</a>
+                <a href="#" id="logoutLink">Logout</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Authentication Section -->
+        <section id="authSection" class="section">
+            <div class="auth-container">
+                <div id="loginForm" class="auth-form">
+                    <h2>Login</h2>
+                    <form id="loginFormElement">
+                        <input type="email" id="loginEmail" placeholder="Email" required>
+                        <input type="password" id="loginPassword" placeholder="Password" required>
+                        <button type="submit">Login</button>
+                    </form>
+                    <p>Don't have an account? <a href="#" id="showRegister">Register</a></p>
+                </div>
+
+                <div id="registerForm" class="auth-form hidden">
+                    <h2>Register</h2>
+                    <form id="registerFormElement">
+                        <input type="text" id="fullName" placeholder="Full Name" required>
+                        <input type="email" id="registerEmail" placeholder="Email" required>
+                        <input type="password" id="registerPassword" placeholder="Password" required>
+                        <input type="tel" id="phoneNumber" placeholder="Phone Number" pattern="[0-9]{10}" required>
+                        <input type="text" id="aadhaarNumber" placeholder="Aadhaar Number" pattern="[0-9]{12}" required>
+                        <button type="submit">Register</button>
+                    </form>
+                    <p>Already have an account? <a href="#" id="showLogin">Login</a></p>
+                </div>
+
+                <div id="otpForm" class="auth-form hidden">
+                    <h2>Verify Phone Number</h2>
+                    <form id="otpFormElement">
+                        <input type="text" id="otpInput" placeholder="Enter OTP" pattern="[0-9]{6}" required>
+                        <button type="submit" id="verifyOtpButton">Verify OTP</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Document Management Section -->
+        <section id="documentSection" class="section hidden">
+            <h2>My Documents</h2>
+            <div class="document-actions">
+                <button id="uploadDocBtn">Upload Document</button>
+                <select id="docCategory">
+                    <option value="education">Education</option>
+                    <option value="healthcare">Healthcare</option>
+                    <option value="railways">Railways</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div id="documentsList" class="documents-grid">
+                <!-- Documents will be dynamically added here -->
+            </div>
+        </section>
+
+        <!-- Profile Section -->
+        <section id="profileSection" class="section hidden">
+            <h2>My Profile</h2>
+            <div class="profile-container">
+                <div class="profile-info">
+                    <h3>Personal Information</h3>
+                    <form id="profileForm">
+                        <input type="text" id="profileName" placeholder="Full Name">
+                        <input type="email" id="profileEmail" placeholder="Email" readonly>
+                        <input type="text" id="profileAadhaar" placeholder="Aadhaar Number" readonly>
+                        <button type="submit">Update Profile</button>
+                    </form>
+                </div>
+                <div class="shared-documents">
+                    <h3>Shared Documents</h3>
+                    <div id="sharedDocsList">
+                        <!-- Shared documents will be dynamically added here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal for Document Upload -->
+    <div id="uploadModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Upload Document</h2>
+            <form id="uploadForm">
+                <input type="text" id="docTitle" placeholder="Document Title" required>
+                <select id="uploadCategory" required>
+                    <option value="education">Education</option>
+                    <option value="healthcare">Healthcare</option>
+                    <option value="railways">Railways</option>
+                    <option value="other">Other</option>
+                </select>
+                <input type="file" id="docFile" required>
+                <button type="submit">Upload</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Firebase Configuration -->
+    <script src="js/firebase-config.js"></script>
+    <!-- Application Scripts -->
+    <script src="js/auth.js"></script>
+    <script src="js/document-manager.js"></script>
+    <script src="js/profile.js"></script>
+    <script src="js/logger.js"></script>
+    <!-- Test Suite -->
+    <script src="js/test-suite.js"></script>
+</body>
+</html> 
